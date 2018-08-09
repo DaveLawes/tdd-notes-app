@@ -21,11 +21,18 @@ describe Notes do
   end
 
   describe "#show_all_titles" do
-    it "shows all three titles on separate lines" do
+    it "shows all three titles in a pretty way" do
       notes.add_title_and_body("Title", "Body")
       notes.add_title_and_body("Title1", "Body1")
       notes.add_title_and_body("Title2", "Body2")
-      expect(notes.show_all_titles).to eq "Title,\nTitle1,\nTitle2"
+      expect(notes.show_all_titles).to eq "1: Title, 2: Title1, 3: Title2"
+    end
+  end
+
+  describe "#show_specific_note" do
+    it "displays title and body in a pretty way" do
+       notes.add_title_and_body("Title", "Body")
+       expect(notes.show_specific_note(0)).to eq "Title: Body"
     end
   end
 end

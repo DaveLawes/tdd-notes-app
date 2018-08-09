@@ -12,8 +12,14 @@ class Notes
 
   def show_all_titles
     arr = []
-    @all_saved_notes.each { |note| arr << note[:title] }
-    arr.join(",\n")
+    @all_saved_notes.each_with_index do |note, idx|
+      arr << "#{ idx + 1 }: #{ note[:title] }"
+    end
+    arr.join(", ")
+  end
+
+  def show_specific_note(idx)
+    "#{all_saved_notes[idx][:title]}: #{all_saved_notes[idx][:body]}"
   end
 
 end
