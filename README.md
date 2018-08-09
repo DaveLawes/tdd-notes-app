@@ -26,14 +26,14 @@ The app is simple but was created using TDD. The TDD process guided the developm
 
 Run rspec from the root of the tdd-notes-app project folder:
 
-'''
+```
 rspec
-'''
+```
 
 Run the program from the command line:
-'''
+```
 ruby notes_app.rb
-'''
+```
 
 
 Enjoy!
