@@ -1,41 +1,47 @@
 require 'notes_app'
-require 'spec_helper'
 
-describe 'User can create a new NoteBook' do
-  it 'Initial creation' do
-    user_creates_a_new_notebook
+describe NoteBook do
+  it 'User can add a note with a title and a body' do
+    given_there_is_a_new_notebook
+    i_can_add_new_note
+    then_the_note_should_be_able_to_view
   end
+
+  it 'User can see a list of all note titles' do
+    given_there_is_a_new_notebook
+    i_can_add_multiple_new_notes
+    then_see_a_list_of_all_note_titles
+  end
+
+  it 'User can pick a note and see its title and body' do
+    given_there_is_a_new_notebook
+    i_can_add_multiple_new_notes
+    then_pick_note1_and_see_it
+  end
+
 end
 
-def user_creates_a_new_notebook
-  true
+def given_there_is_a_new_notebook
+  @notebook = NoteBook.new
 end
-# describe NoteBook do
-#   let(:notebook) {NoteBook.new}
-#
-#   describe "Feature tests: " do
-#     it "User should be able to create new object of class NoteBook" do
-#       expect(notebook.class.name).to eq "NoteBook"
-#     end
-#
-#     it "User should be able to add a note with a title and a body" do
-#       expect {notebook.add_new_note("Title", "Body")}.not_to raise_error
-#     end
-#
-#     it "User should be able to add multiple notes" do
-#       expect {notebook.add_new_note("Title2", "Body2")}.not_to raise_error
-#     end
-#
-#     it "User should be able to see a list of all note titles" do
-#       notebook.add_new_note("Title", "Body")
-#       notebook.add_new_note("Title2", "Body2")
-#       expect(notebook.show_all_titles).to eq "1: Title, 2: Title2"
-#     end
-#
-#     it "User should be able to pick note 1 and see its title and body" do
-#       notebook.add_new_note("Title", "Body")
-#       notebook.add_new_note("Title2", "Body2")
-#       expect(notebook.show_specific_note(1)).to eq "Title2: Body2"
-#     end
-#   end
-# end
+
+def i_can_add_new_note
+  @notebook.add_new_note("Title", "Body")
+end
+
+def then_the_note_should_be_able_to_view
+  expect(@notebook.all_saved_notes).to eq [{:title => "Title", :body => "Body"}]
+end
+
+def i_can_add_multiple_new_notes
+  i_can_add_new_note
+  i_can_add_new_note
+end
+
+def then_see_a_list_of_all_note_titles
+  expect(@notebook.show_all_titles).to eq "1: Title, 2: Title"
+end
+
+def then_pick_note1_and_see_it
+  expect(@notebook.show_specific_note(0)).to eq "Title: Body"
+end
